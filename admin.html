@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TrustBuild Admin</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root{
+  --navy:#06264b;
+  --blue:#0869da;
+  --bg:#f4f7fb;
+  --line:#dce4ee;
+  --ink:#10233a;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+}
+
+button,input,select{font:inherit}
+
+.wrap{
+  max-width:1200px;
+  margin:auto;
+  padding:24px;
+}
+
+.login{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:20px;
+}
+
+.box{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:0 12px 35px #06264b12;
+  padding:30px;
+  width:min(440px,100%);
+}
+
+.logo{
+  width:150px;
+  display:block;
+  margin:0 auto 20px;
+}
+
+.h{
+  text-align:center;
+  color:var(--navy);
+}
+
+.muted{
+  color:#66788b;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  margin:14px 0;
+}
+
+.field input{
+  border:1px solid #cbd7e4;
+  border-radius:11px;
+  padding:13px;
+}
+
+.btn{
+  border:0;
+  border-radius:11px;
+  padding:13px 16px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.primary{
+  background:var(--blue);
+  color:#fff;
+  width:100%;
+}
+
+.top{
+  background:var(--navy);
+  color:#fff;
+}
+
+.topin{
+  max-width:1200px;
+  margin:auto;
+  padding:16px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:900;
+}
+
+.brand img{
+  width:46px;
+  background:#fff;
+  border-radius:8px;
+}
+
+.logout{
+  background:#fff;
+  color:var(--navy);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin:24px 0;
+}
+
+.stat{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:18px;
+}
+
+.stat b{
+  font-size:30px;
+  display:block;
+  color:var(--navy);
+}
+
+.toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+
+.toolbar select{
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fff;
+}
+
+.tablewrap{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:17px;
+  overflow:auto;
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:900px;
+}
+
+.table th,
+.table td{
+  padding:14px;
+  border-bottom:1px solid #edf1f5;
+  text-align:left;
+  vertical-align:top;
+}
+
+.table th{
+  font-size:12px;
+  text-transform:uppercase;
+  color:#66788b;
+}
+
+.actions select{
+  padding:7px;
+  border:1px solid var(--line);
+  border-radius:8px;
+}
+
+.notice{
+  padding:12px;
+  border-radius:12px;
+  background:#eef7ff;
+  border-left:4px solid var(--blue);
+  margin:14px 0;
+}
+
+.error{
+  color:#a51d2d;
+}
+
+.hidden{
+  display:none!important;
+}
+
+@media(max-width:800px){
+  .grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .wrap{
+    padding:16px;
+  }
+
+  .topin{
+    padding:12px 16px;
+  }
+}
+
+@media(max-width:480px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="login" class="login">
+
+  <div class="box">
+
+    <img
+      class="logo"
+      src="https://raw.githubusercontent.com/r4fd9smmnr-cpu/trustbuild-v1/main/trustbuild-logo.png"
+      alt="TrustBuild"
+    >
+
+    <h1 class="h">TrustBuild Admin</h1>
+
+    <p class="muted" style="text-align:center">
+      Private dashboard
+    </p>
+
+    <form id="loginForm">
+
+      <div class="field">
+
+        <label>Email</label>
+
+        <input
+          id="email"
+          type="email"
+          value="trustbuildhandyman@outlook.com"
+          required
+        >
+
+      </div>
+
+      <button
+        class="btn primary"
+        type="submit"
+      >
+        SEND LOGIN LINK
+      </button>
+
+    </form>
+
+    <div
+      id="loginMsg"
+      class="notice hidden"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<div id="app" class="hidden">
+
+<header class="top">
+
+  <div class="topin">
+
+    <div class="brand">
+
+      <img
+        src="https://raw.githubusercontent.com/r4fd9smmnr-cpu/trustbuild-v1/main/trustbuild-logo.png"
+        alt=""
+      >
+
+      <span>TrustBuild Admin</span>
+
+    </div>
+
+    <button
+      id="logout"
+      class="btn logout"
+    >
+      Log out
+    </button>
+
+  </div>
+
+</header>
+
+
+<main class="wrap">
+
+  <h1>Dashboard</h1>
+
+  <p class="muted">
+    Service requests and quote requests from your website.
+  </p>
+
+
+  <div class="grid">
+
+    <div class="stat">
+      <span class="muted">Total</span>
+      <b id="total">0</b>
+    </div>
+
+    <div class="stat">
+      <span class="muted">New</span>
+      <b id="new">0</b>
+    </div>
+
+    <div class="stat">
+      <span class="muted">Bookings</span>
+      <b id="bookings">0</b>
+    </div>
+
+    <div class="stat">
+      <span class="muted">Quotes</span>
+      <b id="quotes">0</b>
+    </div>
+
+  </div>
+
+
+  <div class="toolbar">
+
+    <select id="filter">
+
+      <option value="all">All requests</option>
+
+      <option value="new">New</option>
+
+      <option value="reviewing">Reviewing</option>
+
+      <option value="estimated">Estimated</option>
+
+      <option value="scheduled">Scheduled</option>
+
+      <option value="in_progress">In progress</option>
+
+      <option value="completed">Completed</option>
+
+      <option value="paid">Paid</option>
+
+      <option value="cancelled">Cancelled</option>
+
+    </select>
+
+
+    <button
+      id="refresh"
+      class="btn"
+      style="background:#fff;border:1px solid var(--line)"
+    >
+      ↻ Refresh
+    </button>
+
+  </div>
+
+
+  <div
+    id="error"
+    class="notice error hidden"
+  ></div>
+
+
+  <div class="tablewrap">
+
+    <table class="table">
+
+      <thead>
+
+        <tr>
+
+          <th>Job</th>
+
+          <th>Type</th>
+
+          <th>Customer</th>
+
+          <th>Service</th>
+
+          <th>Date</th>
+
+          <th>Status</th>
+
+          <th>Created</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody id="rows"></tbody>
+
+    </table>
+
+  </div>
+
+</main>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://vxhdjunxoerbkdnklkew.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_K4Vewrs_-H21Xoeycn0jvg_ACr-YwL3";
+
+const sb =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const ADMIN_EMAIL =
+"trustbuildhandyman@outlook.com";
+
+let all = [];
+
+
+const $ =
+id => document.getElementById(id);
+
+
+function msg(text){
+
+  $("loginMsg").textContent = text;
+
+  $("loginMsg")
+    .classList
+    .remove("hidden");
+
+}
+
+
+$("loginForm").addEventListener(
+"submit",
+async e => {
+
+  e.preventDefault();
+
+  const email =
+    $("email")
+      .value
+      .trim()
+      .toLowerCase();
+
+  if(email !== ADMIN_EMAIL){
+
+    msg(
+      "Use the TrustBuild admin email."
+    );
+
+    return;
+  }
+
+
+  const {error} =
+    await sb.auth.signInWithOtp({
+
+      email,
+
+      options:{
+        shouldCreateUser:true,
+
+        emailRedirectTo:
+          location.href
+      }
+
+    });
+
+
+  if(error){
+
+    msg(error.message);
+
+  }else{
+
+    msg(
+      "Login link sent. Check your email, then open the link on this device."
+    );
+
+  }
+
+});
+
+
+$("logout").onclick =
+async () => {
+
+  await sb.auth.signOut();
+
+  showLogin();
+
+};
+
+
+$("refresh").onclick =
+load;
+
+
+$("filter").onchange =
+render;
+
+
+function showLogin(){
+
+  $("app")
+    .classList
+    .add("hidden");
+
+  $("login")
+    .classList
+    .remove("hidden");
+
+}
+
+
+function showApp(){
+
+  $("login")
+    .classList
+    .add("hidden");
+
+  $("app")
+    .classList
+    .remove("hidden");
+
+  load();
+
+}
+
+
+async function load(){
+
+  const {data,error} =
+    await sb
+      .from("requests")
+      .select("*")
+      .order(
+        "created_at",
+        {ascending:false}
+      );
+
+
+  if(error){
+
+    $("error").textContent =
+      error.message;
+
+    $("error")
+      .classList
+      .remove("hidden");
+
+    return;
+
+  }
+
+
+  $("error")
+    .classList
+    .add("hidden");
+
+
+  all = data || [];
+
+
+  $("total").textContent =
+    all.length;
+
+
+  $("new").textContent =
+    all.filter(
+      x => x.status === "new"
+    ).length;
+
+
+  $("bookings").textContent =
+    all.filter(
+      x => x.type === "booking"
+    ).length;
+
+
+  $("quotes").textContent =
+    all.filter(
+      x => x.type === "quote"
+    ).length;
+
+
+  render();
+
+}
+
+
+function render(){
+
+  const f =
+    $("filter").value;
+
+
+  const data =
+    f === "all"
+      ? all
+      : all.filter(
+          x => x.status === f
+        );
+
+
+  $("rows").innerHTML =
+
+    data.map(x => `
+
+      <tr>
+
+        <td>
+          <strong>
+            ${esc(x.job_number || "")}
+          </strong>
+        </td>
+
+
+        <td>
+          ${
+            x.type === "booking"
+              ? "Booking"
+              : "Quote"
+          }
+        </td>
+
+
+        <td>
+
+          <strong>
+            ${esc(x.customer_name)}
+          </strong>
+
+          <br>
+
+          <a href="tel:${esc(x.phone)}">
+            ${esc(x.phone)}
+          </a>
+
+          ${
+            x.email
+              ? "<br>" + esc(x.email)
+              : ""
+          }
+
+          <br>
+
+          <span class="muted">
+            ${esc(x.address || "")}
+          </span>
+
+        </td>
+
+
+        <td>
+
+          ${esc(x.service)}
+
+          <br>
+
+          <span class="muted">
+
+            ${
+              esc(
+                x.description || ""
+              ).slice(0,100)
+            }
+
+          </span>
+
+        </td>
+
+
+        <td>
+          ${x.preferred_date || "—"}
+        </td>
+
+
+        <td class="actions">
+
+          <select
+            data-id="${x.id}"
+          >
+
+            ${
+              [
+                "new",
+                "reviewing",
+                "estimated",
+                "scheduled",
+                "in_progress",
+                "completed",
+                "paid",
+                "cancelled"
+              ]
+              .map(
+                s => `
+                  <option
+                    value="${s}"
+                    ${
+                      s === x.status
+                        ? "selected"
+                        : ""
+                    }
+                  >
+                    ${s.replace("_"," ")}
+                  </option>
+                `
+              )
+              .join("")
+            }
+
+          </select>
+
+        </td>
+
+
+        <td>
+          ${
+            new Date(
+              x.created_at
+            ).toLocaleString()
+          }
+        </td>
+
+      </tr>
+
+    `).join("")
+
+    ||
+
+    `
+      <tr>
+        <td
+          colspan="7"
+          class="muted"
+        >
+          No requests yet.
+        </td>
+      </tr>
+    `;
+
+
+  document
+    .querySelectorAll(
+      ".actions select"
+    )
+    .forEach(
+      s =>
+        s.onchange =
+          updateStatus
+    );
+
+}
+
+
+async function updateStatus(e){
+
+  const id =
+    e.target.dataset.id;
+
+  const status =
+    e.target.value;
+
+
+  const {error} =
+    await sb
+      .from("requests")
+      .update({status})
+      .eq("id",id);
+
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+
+  }
+
+
+  const x =
+    all.find(
+      r => r.id === id
+    );
+
+
+  if(x)
+    x.status = status;
+
+
+  $("new").textContent =
+    all.filter(
+      x => x.status === "new"
+    ).length;
+
+}
+
+
+function esc(v){
+
+  return String(v ?? "")
+    .replace(
+      /[&<>"']/g,
+      m => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+      }[m])
+    );
+
+}
+
+
+sb.auth
+  .getSession()
+  .then(({data}) => {
+
+    const u =
+      data.session?.user;
+
+    if(
+      u &&
+      u.email?.toLowerCase()
+        === ADMIN_EMAIL
+    ){
+
+      showApp();
+
+    }else{
+
+      showLogin();
+
+    }
+
+  });
+
+
+sb.auth
+  .onAuthStateChange(
+    (_e,s) => {
+
+      const u =
+        s?.user;
+
+      if(
+        u &&
+        u.email?.toLowerCase()
+          === ADMIN_EMAIL
+      ){
+
+        showApp();
+
+      }else if(!s){
+
+        showLogin();
+
+      }
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
