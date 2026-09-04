@@ -1,0 +1,15 @@
+{
+  "name": "TrustBuild Handyman",
+  "short_name": "TrustBuild",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f8fb",
+  "theme_color": "#06264b",
+  "icons": [
+    {
+      "src": "trustbuild-logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ]
+}

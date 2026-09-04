@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06264b">
+<title>TrustBuild Handyman | Repairs Today. A Stronger Tomorrow.</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--navy:#06264b;--blue:#075fc9;--electric:#00a8ff;--silver:#d9e1ea;--ink:#09213e;--bg:#f5f8fb;--white:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+button,input,textarea,select{font:inherit}.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #dce4ee}
+.nav{max-width:1180px;margin:auto;display:flex;align-items:center;gap:22px;padding:10px 18px}.brand img{width:92px;height:70px;object-fit:contain}.links{display:flex;gap:22px;align-items:center;flex:1;justify-content:center}.links button{border:0;background:none;color:var(--navy);font-weight:700;cursor:pointer;padding:9px}.links button.active{color:var(--blue);border-bottom:3px solid var(--electric)}
+.call{background:linear-gradient(135deg,#075fc9,#04377a);color:white;border:0;border-radius:15px;padding:12px 20px;font-weight:800;cursor:pointer}.call small{display:block;font-weight:500;opacity:.9}.hero{min-height:500px;background:linear-gradient(90deg,rgba(2,28,58,.96) 0%,rgba(3,48,91,.82) 47%,rgba(3,37,69,.32) 100%),url('trustbuild-logo.png');background-size:cover;background-position:center;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 40%,rgba(0,168,255,.35),transparent 38%);pointer-events:none}.hero-inner{position:relative;z-index:2;max-width:1180px;margin:auto;padding:72px 28px;color:#fff}.eyebrow{letter-spacing:2px;font-weight:700;color:#bfe8ff}.hero h1{font-size:clamp(42px,7vw,76px);line-height:.98;margin:15px 0 20px;max-width:730px}.hero h1 span{color:var(--electric)}.hero p{font-size:20px;max-width:600px;line-height:1.5}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.primary,.secondary{border-radius:13px;padding:15px 22px;font-weight:900;border:2px solid transparent;cursor:pointer}.primary{background:var(--electric);color:#031e39}.secondary{background:transparent;color:#fff;border-color:#fff}.trust-row{display:flex;gap:30px;margin-top:45px;flex-wrap:wrap}.trust{display:flex;gap:9px;align-items:center;font-weight:800}.trust b{font-size:25px;color:var(--electric)}
+.section{max-width:1180px;margin:auto;padding:55px 22px}.section h2{font-size:38px;margin:0 0 8px;color:var(--navy)}.section .lead{margin:0 0 25px;font-size:18px;color:#4d6075}.service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.card{background:#fff;border:1px solid #dce4ee;border-radius:18px;padding:20px;box-shadow:0 8px 25px rgba(6,38,75,.07);cursor:pointer;transition:.2s}.card:hover{transform:translateY(-3px);border-color:#8fcfff}.icon{width:45px;height:45px;border-radius:12px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:23px;margin-bottom:14px}.card h3{margin:0 0 7px;font-size:19px}.card p{margin:0;color:#5c6d80;line-height:1.45}.card .arrow{float:right;color:var(--blue);font-weight:900;font-size:24px}.cta-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}.cta{padding:25px;border-radius:18px;border:1px solid #d3dfec;background:#fff;cursor:pointer;text-align:left}.cta.primary-cta{background:linear-gradient(135deg,#0869da,#043a83);color:#fff;border:0}.cta strong{font-size:22px;display:block}.cta span{opacity:.85}.panel{display:none}.panel.active{display:block}.form-wrap{max-width:850px;background:#fff;border-radius:20px;padding:26px;border:1px solid #dce4ee;box-shadow:0 10px 30px rgba(6,38,75,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-weight:800}.field input,.field textarea,.field select{border:1px solid #cbd7e4;border-radius:11px;padding:12px;background:#fbfdff;color:var(--ink)}textarea{min-height:130px;resize:vertical}.photos{border:2px dashed #b8c9db;border-radius:14px;padding:18px;background:#f8fbfe}.thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.thumbs img{width:82px;height:82px;object-fit:cover;border-radius:10px;border:1px solid #d1dce8}.notice{padding:14px;border-radius:12px;background:#eef7ff;border-left:4px solid var(--electric);margin:18px 0}.result{display:none;margin-top:18px;padding:18px;border-radius:14px;background:#eef9f1;border:1px solid #bfe0c7}.footer{background:#031b34;color:#fff;padding:35px 22px}.footer-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:25px}.footer a{color:#fff}.muted{color:#b7c7d8}.modal{position:fixed;inset:0;background:rgba(0,20,40,.65);display:none;place-items:center;z-index:50;padding:20px}.modal.show{display:grid}.modal-box{background:#fff;border-radius:20px;max-width:540px;width:100%;padding:26px;position:relative}.close{position:absolute;right:15px;top:12px;border:0;background:none;font-size:28px;cursor:pointer}.toast{position:fixed;bottom:20px;right:20px;background:#06264b;color:#fff;padding:14px 18px;border-radius:12px;display:none;z-index:80}.toast.show{display:block}
+@media(max-width:850px){.links{display:none}.nav{justify-content:space-between}.service-grid{grid-template-columns:1fr 1fr}.footer-inner{grid-template-columns:1fr 1fr}.hero-inner{padding-top:55px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+@media(max-width:560px){.service-grid,.cta-row,.footer-inner{grid-template-columns:1fr}.hero{min-height:590px}.hero h1{font-size:45px}.trust-row{gap:17px}.call{padding:10px 12px}.brand img{width:80px}}
+</style>
+</head>
+<body>
+<header class="top">
+<nav class="nav">
+  <button class="brand" onclick="showPanel('home')" style="border:0;background:none;cursor:pointer"><img src="trustbuild-logo.png" alt="TrustBuild Handyman"></button>
+  <div class="links">
+    <button data-nav="home" onclick="showPanel('home')">Home</button>
+    <button data-nav="services" onclick="showPanel('services')">Services</button>
+    <button data-nav="booking" onclick="showPanel('booking')">Book Now</button>
+    <button data-nav="quote" onclick="showPanel('quote')">Get a Quote</button>
+  </div>
+  <button class="call" onclick="window.location.href='tel:+17753513799'">☎ Call / Text <small>(775) 351-3799</small></button>
+</nav>
+</header>
+
+<main>
+<section id="home" class="panel active">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">REPAIRS TODAY. A STRONGER TOMORROW.</div>
+      <h1>HOW CAN WE <span>HELP YOU</span> TODAY?</h1>
+      <p>From small repairs to large projects, TrustBuild Handyman is here to help.</p>
+      <div class="hero-actions">
+        <button class="primary" onclick="showPanel('booking')">📅 Book a Service</button>
+        <button class="secondary" onclick="showPanel('quote')">▣ Get a Quote</button>
+      </div>
+      <div class="trust-row">
+        <div class="trust"><b>✓</b> QUALITY WORK</div><div class="trust"><b>◷</b> ON TIME SERVICE</div><div class="trust"><b>♟</b> LOCAL & TRUSTED</div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>SELECT A SERVICE</h2><p class="lead">Choose the category that best fits your project.</p>
+    <div id="serviceGrid" class="service-grid"></div>
+    <div class="cta-row">
+      <button class="cta primary-cta" onclick="showPanel('booking')"><strong>📅 BOOK A SERVICE NOW →</strong><span>Fast. Easy. Reliable.</span></button>
+      <button class="cta" onclick="showPanel('quote')"><strong>▤ GET A QUOTE →</strong><span>Tell us about your project.</span></button>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="panel">
+  <div class="section"><h2>Our Services</h2><p class="lead">Professional repair and maintenance for homes and businesses.</p><div id="serviceGrid2" class="service-grid"></div></div>
+</section>
+
+<section id="booking" class="panel">
+  <div class="section">
+    <h2>Book a Service</h2><p class="lead">Tell us what you need. Your request will be saved on this device until we connect a live backend.</p>
+    <div class="form-wrap">
+      <form id="bookingForm">
+        <div class="form-grid">
+          <div class="field"><label>Full Name</label><input name="name" required></div>
+          <div class="field"><label>Phone</label><input name="phone" type="tel" required></div>
+          <div class="field"><label>Email</label><input name="email" type="email"></div>
+          <div class="field"><label>Service</label><select name="service" id="bookingService" required></select></div>
+          <div class="field full"><label>Job Address</label><input name="address" required placeholder="Street, city, ZIP"></div>
+          <div class="field"><label>Preferred Date</label><input name="date" type="date" required></div>
+          <div class="field"><label>Preferred Time</label><select name="time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></div>
+          <div class="field full"><label>What needs to be done?</label><textarea name="description" required></textarea></div>
+          <div class="field full"><label>Urgency</label><select name="urgency"><option>Normal</option><option>Priority</option><option>Emergency / Same Day</option></select></div>
+        </div>
+        <div class="notice">This V1 creates a local request ID. In the next build we can connect it to a real database, notifications, AI analysis and your booking calendar.</div>
+        <button class="primary" type="submit">SUBMIT SERVICE REQUEST →</button>
+        <div id="bookingResult" class="result"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="quote" class="panel">
+  <div class="section">
+    <h2>Get a Quote</h2><p class="lead">Send the details and photos of your project. TrustBuild can review the request before giving a final price.</p>
+    <div class="form-wrap">
+      <form id="quoteForm">
+        <div class="form-grid">
+          <div class="field"><label>Full Name</label><input name="name" required></div>
+          <div class="field"><label>Phone</label><input name="phone" type="tel" required></div>
+          <div class="field"><label>Email</label><input name="email" type="email"></div>
+          <div class="field"><label>Service</label><select name="service" id="quoteService" required></select></div>
+          <div class="field full"><label>Job Address</label><input name="address" required></div>
+          <div class="field full"><label>Describe the problem</label><textarea name="description" required placeholder="What is happening? What would you like repaired or installed?"></textarea></div>
+          <div class="field full"><label>Photos</label><div class="photos"><input id="photoInput" type="file" accept="image/*" multiple><div id="thumbs" class="thumbs"></div></div></div>
+        </div>
+        <div class="notice">For safety and accuracy, V1 does not automatically promise a diagnosis or final price. Photos help us prepare the right questions and materials.</div>
+        <button class="primary" type="submit">SEND QUOTE REQUEST →</button>
+        <div id="quoteResult" class="result"></div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+<div class="footer-inner">
+  <div><img src="trustbuild-logo.png" alt="" style="width:120px;background:#fff;border-radius:12px"><p class="muted">REPAIRS TODAY. A STRONGER TOMORROW.</p></div>
+  <div><strong>Contact</strong><p><a href="tel:+17753513799">(775) 351-3799</a><br><a href="mailto:trustbuildhandyman@outlook.com">trustbuildhandyman@outlook.com</a></p></div>
+  <div><strong>Service Area</strong><p class="muted">Reno / Sparks, NV<br>and surrounding areas</p></div>
+  <div><strong>TrustBuild</strong><p class="muted">Licensed<br>Reliable<br>Professional</p></div>
+</div>
+</footer>
+
+<div id="modal" class="modal" onclick="if(event.target===this)closeModal()"><div class="modal-box"><button class="close" onclick="closeModal()">×</button><h2 id="modalTitle"></h2><p id="modalBody"></p><button class="primary" onclick="closeModal();showPanel('quote')">Request Help →</button></div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const services=[
+["🚪","Commercial Doors","Door closers, hinges, weather stripping, sweeps and more."],
+["🛠️","General Repairs","Fixes, installations and maintenance."],
+["🚰","Plumbing","Leaks, fixtures, clogged drains, mop sinks and more."],
+["💡","Electrical","Lighting, switches, outlets and basic electrical work."],
+["🧱","Drywall / Flooring","Repairs, replacements and finishing."],
+["🏢","Commercial Maintenance","Ongoing maintenance for your business."],
+["📷","Other / Send Photos","Not sure? Send photos and tell us what you need."]
+];
+function serviceCards(target){
+ document.getElementById(target).innerHTML=services.map((s,i)=>`<button class="card" onclick="servicePick(${i})"><div class="icon">${s[0]}</div><h3>${s[1]} <span class="arrow">›</span></h3><p>${s[2]}</p></button>`).join("");
+}
+serviceCards("serviceGrid"); serviceCards("serviceGrid2");
+function fillServices(id){document.getElementById(id).innerHTML='<option value="">Select a service</option>'+services.map(s=>`<option>${s[1]}</option>`).join("")}
+fillServices("bookingService");fillServices("quoteService");
+
+function showPanel(id){
+ document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll("[data-nav]").forEach(x=>x.classList.toggle("active",x.dataset.nav===id));
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function servicePick(i){
+ document.getElementById("quoteService").value=services[i][1];
+ showPanel("quote");
+ document.querySelector("#quote textarea").focus();
+}
+function showModal(title,body){document.getElementById("modalTitle").textContent=title;document.getElementById("modalBody").textContent=body;document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function rid(prefix){return prefix+"-"+new Date().getFullYear()+"-"+Math.random().toString(36).slice(2,7).toUpperCase()}
+function saveRequest(type,data){
+ const key="trustbuild_requests";
+ const all=JSON.parse(localStorage.getItem(key)||"[]");
+ const id=rid(type==="quote"?"QT":"JOB");
+ const item={id,type,createdAt:new Date().toISOString(),...data};
+ all.push(item);localStorage.setItem(key,JSON.stringify(all));
+ return id;
+}
+function success(el,id,type){el.style.display="block";el.innerHTML=`<strong>Request received: ${id}</strong><br>Thank you. Your ${type} request is saved in this V1 demo. A live backend can be connected next to notify TrustBuild automatically.`}
+document.getElementById("bookingForm").addEventListener("submit",e=>{
+ e.preventDefault();const d=Object.fromEntries(new FormData(e.target));const id=saveRequest("booking",d);success(document.getElementById("bookingResult"),id,"service");e.target.reset();toast("Service request created");
+});
+document.getElementById("quoteForm").addEventListener("submit",e=>{
+ e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.photoCount=document.getElementById("photoInput").files.length;const id=saveRequest("quote",d);success(document.getElementById("quoteResult"),id,"quote");e.target.reset();document.getElementById("thumbs").innerHTML="";toast("Quote request created");
+});
+document.getElementById("photoInput").addEventListener("change",e=>{
+ const t=document.getElementById("thumbs");t.innerHTML="";
+ [...e.target.files].slice(0,8).forEach(f=>{const r=new FileReader();r.onload=()=>{const im=document.createElement("img");im.src=r.result;t.appendChild(im)};r.readAsDataURL(f)});
+});
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),2500)}
+</script>
+</body>
+</html>
