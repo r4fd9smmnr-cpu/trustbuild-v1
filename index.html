@@ -391,30 +391,6 @@ function rid(prefix){
   return prefix+"-"+new Date().getFullYear()+"-"+Math.random().toString(36).slice(2,7).toUpperCase();
 }
 
-async function saveRequest(type,data){
-  const id=rid(type==="quote"?"QT":"JOB");
-
-  const {error}=await supabaseClient
-    .from("requests")
-    .insert({
-      job_number:id,
-      type:type,
-      customer_name:data.name,
-      phone:data.phone,
-      email:data.email||null,
-      address:data.address||null,
-      service:data.service,
-      description:data.description||null,
-      preferred_date:data.date||null,
-      status:"new",
-      photo_count:Number(data.photoCount||0)
-    });
-
-  if(error) throw error;
-
-  return id;
-}
-
 function showResult(id,message){
   const el=document.getElementById(id);
   el.innerHTML=message;
