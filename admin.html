@@ -14,6 +14,10 @@
   --bg:#f4f7fb;
   --line:#dce4ee;
   --ink:#10233a;
+  --muted:#66788b;
+  --green:#16834b;
+  --red:#b42318;
+  --orange:#c76b00;
 }
 
 *{box-sizing:border-box}
@@ -25,10 +29,14 @@ body{
   color:var(--ink);
 }
 
-button,input,select{font:inherit}
+button,input,select,textarea{font:inherit}
+
+button{cursor:pointer}
+
+.hidden{display:none!important}
 
 .wrap{
-  max-width:1200px;
+  max-width:1250px;
   margin:auto;
   padding:24px;
 }
@@ -60,9 +68,7 @@ button,input,select{font:inherit}
   color:var(--navy);
 }
 
-.muted{
-  color:#66788b;
-}
+.muted{color:var(--muted)}
 
 .field{
   display:flex;
@@ -71,18 +77,27 @@ button,input,select{font:inherit}
   margin:14px 0;
 }
 
-.field input{
+.field input,
+.field select,
+.field textarea,
+.toolbar input,
+.toolbar select{
   border:1px solid #cbd7e4;
   border-radius:11px;
-  padding:13px;
+  padding:12px;
+  background:#fff;
+}
+
+.field textarea{
+  min-height:110px;
+  resize:vertical;
 }
 
 .btn{
   border:0;
   border-radius:11px;
-  padding:13px 16px;
+  padding:12px 16px;
   font-weight:800;
-  cursor:pointer;
 }
 
 .primary{
@@ -97,7 +112,7 @@ button,input,select{font:inherit}
 }
 
 .topin{
-  max-width:1200px;
+  max-width:1250px;
   margin:auto;
   padding:16px 24px;
   display:flex;
@@ -111,12 +126,15 @@ button,input,select{font:inherit}
   align-items:center;
   gap:12px;
   font-weight:900;
+  font-size:20px;
 }
 
 .brand img{
-  width:46px;
+  width:48px;
+  height:48px;
+  object-fit:contain;
   background:#fff;
-  border-radius:8px;
+  border-radius:9px;
 }
 
 .logout{
@@ -142,6 +160,7 @@ button,input,select{font:inherit}
   font-size:30px;
   display:block;
   color:var(--navy);
+  margin-top:4px;
 }
 
 .toolbar{
@@ -151,11 +170,27 @@ button,input,select{font:inherit}
   margin-bottom:14px;
 }
 
+.search{
+  flex:1 1 280px;
+}
+
+.toolbar input,
 .toolbar select{
-  padding:10px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:#fff;
+  min-height:44px;
+}
+
+.notice{
+  padding:12px;
+  border-radius:12px;
+  background:#eef7ff;
+  border-left:4px solid var(--blue);
+  margin:14px 0;
+}
+
+.error{
+  color:var(--red);
+  background:#fff1f1;
+  border-left-color:var(--red);
 }
 
 .tablewrap{
@@ -168,7 +203,7 @@ button,input,select{font:inherit}
 .table{
   width:100%;
   border-collapse:collapse;
-  min-width:900px;
+  min-width:1050px;
 }
 
 .table th,
@@ -182,29 +217,157 @@ button,input,select{font:inherit}
 .table th{
   font-size:12px;
   text-transform:uppercase;
-  color:#66788b;
+  color:var(--muted);
 }
 
+.table tr:hover td{
+  background:#f8fbff;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.actions button,
 .actions select{
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:7px 9px;
+  background:#fff;
+}
+
+.actions .view{
+  background:var(--blue);
+  color:#fff;
+  border-color:var(--blue);
+}
+
+.status{
   padding:7px;
   border:1px solid var(--line);
   border-radius:8px;
+  background:#fff;
 }
 
-.notice{
-  padding:12px;
+.badge{
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  background:#edf2f7;
+}
+
+.badge.priority{
+  background:#fff0df;
+  color:var(--orange);
+}
+
+.badge.emergency{
+  background:#ffe7e7;
+  color:var(--red);
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#061a2dcc;
+  display:grid;
+  place-items:center;
+  padding:18px;
+  z-index:1000;
+}
+
+.modalbox{
+  width:min(720px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 20px 60px #0005;
+}
+
+.modalhead{
+  position:sticky;
+  top:0;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  padding:18px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  z-index:2;
+}
+
+.modalbody{
+  padding:20px;
+}
+
+.close{
+  border:0;
+  background:#eef2f6;
+  border-radius:10px;
+  width:40px;
+  height:40px;
+  font-size:20px;
+}
+
+.detailgrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.detail{
+  background:#f7f9fc;
+  border:1px solid var(--line);
   border-radius:12px;
-  background:#eef7ff;
-  border-left:4px solid var(--blue);
-  margin:14px 0;
+  padding:12px;
 }
 
-.error{
-  color:#a51d2d;
+.detail.full{
+  grid-column:1/-1;
 }
 
-.hidden{
-  display:none!important;
+.detail label{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:5px;
+}
+
+.modal-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:18px;
+}
+
+.modal-actions button,
+.modal-actions a{
+  text-decoration:none;
+  border:0;
+  border-radius:10px;
+  padding:11px 14px;
+  font-weight:800;
+}
+
+.call{background:#e9f7ef;color:var(--green)}
+.text{background:#eaf4ff;color:var(--blue)}
+.map{background:#f0f2f5;color:var(--ink)}
+
+.save{
+  background:var(--blue);
+  color:#fff;
+}
+
+.csv{
+  background:#fff;
+  border:1px solid var(--line);
 }
 
 @media(max-width:800px){
@@ -219,17 +382,35 @@ button,input,select{font:inherit}
   .topin{
     padding:12px 16px;
   }
+
+  .brand span{
+    font-size:17px;
+  }
 }
 
 @media(max-width:480px){
   .grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .detailgrid{
     grid-template-columns:1fr;
+  }
+
+  .detail.full{
+    grid-column:auto;
+  }
+
+  .logout{
+    padding:10px 12px;
   }
 }
 </style>
 </head>
 
 <body>
+
+<!-- LOGIN -->
 
 <div id="login" class="login">
 
@@ -262,24 +443,20 @@ button,input,select{font:inherit}
 
       </div>
 
-      <button
-        class="btn primary"
-        type="submit"
-      >
+      <button class="btn primary" type="submit">
         SEND LOGIN LINK
       </button>
 
     </form>
 
-    <div
-      id="loginMsg"
-      class="notice hidden"
-    ></div>
+    <div id="loginMsg" class="notice hidden"></div>
 
   </div>
 
 </div>
 
+
+<!-- APP -->
 
 <div id="app" class="hidden">
 
@@ -298,10 +475,7 @@ button,input,select{font:inherit}
 
     </div>
 
-    <button
-      id="logout"
-      class="btn logout"
-    >
+    <button id="logout" class="btn logout">
       Log out
     </button>
 
@@ -315,9 +489,11 @@ button,input,select{font:inherit}
   <h1>Dashboard</h1>
 
   <p class="muted">
-    Service requests and quote requests from your website.
+    Manage service requests, estimates and scheduled jobs.
   </p>
 
+
+  <!-- STATS -->
 
   <div class="grid">
 
@@ -344,47 +520,54 @@ button,input,select{font:inherit}
   </div>
 
 
+  <!-- TOOLBAR -->
+
   <div class="toolbar">
+
+    <input
+      id="search"
+      class="search"
+      type="search"
+      placeholder="Search customer, phone, service or Job #"
+    >
 
     <select id="filter">
 
-      <option value="all">All requests</option>
-
+      <option value="all">All statuses</option>
       <option value="new">New</option>
-
       <option value="reviewing">Reviewing</option>
-
       <option value="estimated">Estimated</option>
-
       <option value="scheduled">Scheduled</option>
-
       <option value="in_progress">In progress</option>
-
       <option value="completed">Completed</option>
-
       <option value="paid">Paid</option>
-
       <option value="cancelled">Cancelled</option>
 
     </select>
 
+    <select id="typeFilter">
 
-    <button
-      id="refresh"
-      class="btn"
-      style="background:#fff;border:1px solid var(--line)"
-    >
+      <option value="all">All types</option>
+      <option value="booking">Bookings</option>
+      <option value="quote">Quotes</option>
+
+    </select>
+
+    <button id="refresh" class="btn csv">
       ↻ Refresh
+    </button>
+
+    <button id="export" class="btn csv">
+      ↓ Export CSV
     </button>
 
   </div>
 
 
-  <div
-    id="error"
-    class="notice error hidden"
-  ></div>
+  <div id="error" class="notice error hidden"></div>
 
+
+  <!-- TABLE -->
 
   <div class="tablewrap">
 
@@ -395,18 +578,12 @@ button,input,select{font:inherit}
         <tr>
 
           <th>Job</th>
-
           <th>Type</th>
-
           <th>Customer</th>
-
           <th>Service</th>
-
           <th>Date</th>
-
           <th>Status</th>
-
-          <th>Created</th>
+          <th>Actions</th>
 
         </tr>
 
@@ -419,6 +596,121 @@ button,input,select{font:inherit}
   </div>
 
 </main>
+
+</div>
+
+
+<!-- DETAIL MODAL -->
+
+<div id="modal" class="modal hidden">
+
+  <div class="modalbox">
+
+    <div class="modalhead">
+
+      <div>
+        <strong id="modalTitle">Request</strong>
+        <div id="modalSubtitle" class="muted"></div>
+      </div>
+
+      <button id="closeModal" class="close">
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="modalbody">
+
+      <div id="details" class="detailgrid"></div>
+
+
+      <div class="field">
+
+        <label>Status</label>
+
+        <select id="modalStatus">
+
+          <option value="new">New</option>
+          <option value="reviewing">Reviewing</option>
+          <option value="estimated">Estimated</option>
+          <option value="scheduled">Scheduled</option>
+          <option value="in_progress">In progress</option>
+          <option value="completed">Completed</option>
+          <option value="paid">Paid</option>
+          <option value="cancelled">Cancelled</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Estimate Amount ($)</label>
+
+        <input
+          id="estimate"
+          type="number"
+          min="0"
+          step="0.01"
+          placeholder="0.00"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Scheduled Date & Time</label>
+
+        <input
+          id="scheduled"
+          type="datetime-local"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Internal Notes</label>
+
+        <textarea
+          id="notes"
+          placeholder="Private notes for TrustBuild..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <a id="callBtn" class="call">
+          📞 Call
+        </a>
+
+        <a id="textBtn" class="text">
+          💬 Text
+        </a>
+
+        <a id="mapBtn" class="map" target="_blank">
+          📍 Maps
+        </a>
+
+        <button id="copyBtn" class="map">
+          📋 Copy Info
+        </button>
+
+        <button id="saveBtn" class="save">
+          💾 Save Changes
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
 
@@ -441,11 +733,14 @@ const ADMIN_EMAIL =
 "trustbuildhandyman@outlook.com";
 
 let all = [];
+let selected = null;
 
 
 const $ =
 id => document.getElementById(id);
 
+
+/* LOGIN MESSAGE */
 
 function msg(text){
 
@@ -457,6 +752,8 @@ function msg(text){
 
 }
 
+
+/* LOGIN */
 
 $("loginForm").addEventListener(
 "submit",
@@ -477,6 +774,7 @@ async e => {
     );
 
     return;
+
   }
 
 
@@ -489,7 +787,7 @@ async e => {
         shouldCreateUser:true,
 
         emailRedirectTo:
-         "https://trustbuild-handyman-v1.vercel.app/admin.html"
+        "https://trustbuild-handyman-v1.vercel.app/admin.html"
       }
 
     });
@@ -510,6 +808,8 @@ async e => {
 });
 
 
+/* LOGOUT */
+
 $("logout").onclick =
 async () => {
 
@@ -520,13 +820,31 @@ async () => {
 };
 
 
-$("refresh").onclick =
-load;
+/* EVENTS */
+
+$("refresh").onclick = load;
+
+$("filter").onchange = render;
+
+$("typeFilter").onchange = render;
+
+$("search").oninput = render;
+
+$("export").onclick = exportCSV;
+
+$("closeModal").onclick = closeModal;
+
+$("modal").addEventListener(
+"click",
+e => {
+
+  if(e.target === $("modal"))
+    closeModal();
+
+});
 
 
-$("filter").onchange =
-render;
-
+/* LOGIN / APP */
 
 function showLogin(){
 
@@ -555,6 +873,8 @@ function showApp(){
 
 }
 
+
+/* LOAD */
 
 async function load(){
 
@@ -590,202 +910,354 @@ async function load(){
   all = data || [];
 
 
-  $("total").textContent =
-    all.length;
-
-
-  $("new").textContent =
-    all.filter(
-      x => x.status === "new"
-    ).length;
-
-
-  $("bookings").textContent =
-    all.filter(
-      x => x.type === "booking"
-    ).length;
-
-
-  $("quotes").textContent =
-    all.filter(
-      x => x.type === "quote"
-    ).length;
-
+  updateStats();
 
   render();
 
 }
 
 
+/* STATS */
+
+function updateStats(){
+
+  $("total").textContent =
+    all.length;
+
+  $("new").textContent =
+    all.filter(
+      x => x.status === "new"
+    ).length;
+
+  $("bookings").textContent =
+    all.filter(
+      x => x.type === "booking"
+    ).length;
+
+  $("quotes").textContent =
+    all.filter(
+      x => x.type === "quote"
+    ).length;
+
+}
+
+
+/* SEARCH + FILTER */
+
 function render(){
 
-  const f =
+  const status =
     $("filter").value;
 
+  const type =
+    $("typeFilter").value;
 
-  const data =
-    f === "all"
-      ? all
-      : all.filter(
-          x => x.status === f
-        );
+  const search =
+    $("search")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  let data = all.filter(x => {
+
+    const statusOK =
+      status === "all" ||
+      x.status === status;
+
+    const typeOK =
+      type === "all" ||
+      x.type === type;
+
+    const text = [
+
+      x.job_number,
+      x.customer_name,
+      x.phone,
+      x.email,
+      x.service,
+      x.address,
+      x.description
+
+    ]
+    .join(" ")
+    .toLowerCase();
+
+
+    const searchOK =
+      !search ||
+      text.includes(search);
+
+
+    return statusOK &&
+           typeOK &&
+           searchOK;
+
+  });
 
 
   $("rows").innerHTML =
-
-    data.map(x => `
-
-      <tr>
-
-        <td>
-          <strong>
-            ${esc(x.job_number || "")}
-          </strong>
-        </td>
-
-
-        <td>
-          ${
-            x.type === "booking"
-              ? "Booking"
-              : "Quote"
-          }
-        </td>
-
-
-        <td>
-
-          <strong>
-            ${esc(x.customer_name)}
-          </strong>
-
-          <br>
-
-          <a href="tel:${esc(x.phone)}">
-            ${esc(x.phone)}
-          </a>
-
-          ${
-            x.email
-              ? "<br>" + esc(x.email)
-              : ""
-          }
-
-          <br>
-
-          <span class="muted">
-            ${esc(x.address || "")}
-          </span>
-
-        </td>
-
-
-        <td>
-
-          ${esc(x.service)}
-
-          <br>
-
-          <span class="muted">
-
-            ${
-              esc(
-                x.description || ""
-              ).slice(0,100)
-            }
-
-          </span>
-
-        </td>
-
-
-        <td>
-          ${x.preferred_date || "—"}
-        </td>
-
-
-        <td class="actions">
-
-          <select
-            data-id="${x.id}"
-          >
-
-            ${
-              [
-                "new",
-                "reviewing",
-                "estimated",
-                "scheduled",
-                "in_progress",
-                "completed",
-                "paid",
-                "cancelled"
-              ]
-              .map(
-                s => `
-                  <option
-                    value="${s}"
-                    ${
-                      s === x.status
-                        ? "selected"
-                        : ""
-                    }
-                  >
-                    ${s.replace("_"," ")}
-                  </option>
-                `
-              )
-              .join("")
-            }
-
-          </select>
-
-        </td>
-
-
-        <td>
-          ${
-            new Date(
-              x.created_at
-            ).toLocaleString()
-          }
-        </td>
-
-      </tr>
-
-    `).join("")
-
+    data.map(rowHTML).join("")
     ||
-
     `
-      <tr>
-        <td
-          colspan="7"
-          class="muted"
-        >
-          No requests yet.
-        </td>
-      </tr>
+    <tr>
+      <td colspan="7" class="muted">
+        No requests found.
+      </td>
+    </tr>
     `;
 
 
   document
-    .querySelectorAll(
-      ".actions select"
-    )
-    .forEach(
-      s =>
-        s.onchange =
-          updateStatus
+    .querySelectorAll("[data-view]")
+    .forEach(btn => {
+
+      btn.onclick = () =>
+        openModal(btn.dataset.view);
+
+    });
+
+
+  document
+    .querySelectorAll("[data-status]")
+    .forEach(select => {
+
+      select.onchange =
+        updateStatus;
+
+    });
+
+}
+
+
+/* TABLE ROW */
+
+function rowHTML(x){
+
+  const urgency =
+    (x.urgency || "").toLowerCase();
+
+  let urgencyBadge = "";
+
+  if(
+    urgency.includes("emergency")
+  ){
+
+    urgencyBadge =
+      `<span class="badge emergency">
+        Emergency
+      </span>`;
+
+  }else if(
+    urgency.includes("priority") ||
+    urgency.includes("urgent")
+  ){
+
+    urgencyBadge =
+      `<span class="badge priority">
+        Priority
+      </span>`;
+
+  }
+
+
+  return `
+
+  <tr>
+
+    <td>
+
+      <strong>
+        ${esc(x.job_number || "")}
+      </strong>
+
+      <br>
+
+      ${urgencyBadge}
+
+    </td>
+
+
+    <td>
+
+      ${
+        x.type === "booking"
+          ? "Booking"
+          : "Quote"
+      }
+
+    </td>
+
+
+    <td>
+
+      <strong>
+        ${esc(x.customer_name)}
+      </strong>
+
+      <br>
+
+      <a href="tel:${esc(x.phone)}">
+        ${esc(x.phone)}
+      </a>
+
+      ${
+        x.email
+          ? `<br>${esc(x.email)}`
+          : ""
+      }
+
+    </td>
+
+
+    <td>
+
+      ${esc(x.service)}
+
+      <br>
+
+      <span class="muted">
+
+        ${esc(
+          x.description || ""
+        ).slice(0,90)}
+
+      </span>
+
+    </td>
+
+
+    <td>
+
+      ${
+        x.preferred_date ||
+        "—"
+      }
+
+      ${
+        x.preferred_time
+          ? `<br>${esc(x.preferred_time)}`
+          : ""
+      }
+
+    </td>
+
+
+    <td>
+
+      <select
+        class="status"
+        data-status="${esc(x.id)}"
+      >
+
+        ${
+          statuses()
+          .map(s => `
+
+            <option
+              value="${s}"
+              ${
+                s === x.status
+                  ? "selected"
+                  : ""
+              }
+            >
+              ${prettyStatus(s)}
+            </option>
+
+          `)
+          .join("")
+        }
+
+      </select>
+
+    </td>
+
+
+    <td>
+
+      <div class="actions">
+
+        <button
+          class="view"
+          data-view="${esc(x.id)}"
+        >
+          View
+        </button>
+
+        <button
+          onclick="quickCall('${escAttr(x.phone)}')"
+        >
+          📞
+        </button>
+
+        <button
+          onclick="quickText('${escAttr(x.phone)}')"
+        >
+          💬
+        </button>
+
+        ${
+          x.address
+            ? `
+              <button
+                onclick="openMap('${escAttr(x.address)}')"
+              >
+                📍
+              </button>
+            `
+            : ""
+        }
+
+      </div>
+
+    </td>
+
+  </tr>
+
+  `;
+
+}
+
+
+/* STATUS */
+
+function statuses(){
+
+  return [
+
+    "new",
+    "reviewing",
+    "estimated",
+    "scheduled",
+    "in_progress",
+    "completed",
+    "paid",
+    "cancelled"
+
+  ];
+
+}
+
+
+function prettyStatus(s){
+
+  return s
+    .replaceAll("_"," ")
+    .replace(
+      /\b\w/g,
+      c => c.toUpperCase()
     );
 
 }
 
 
+/* UPDATE STATUS */
+
 async function updateStatus(e){
 
   const id =
-    e.target.dataset.id;
+    e.target.dataset.status;
 
   const status =
     e.target.value;
@@ -802,6 +1274,8 @@ async function updateStatus(e){
 
     alert(error.message);
 
+    await load();
+
     return;
 
   }
@@ -817,30 +1291,578 @@ async function updateStatus(e){
     x.status = status;
 
 
-  $("new").textContent =
-    all.filter(
-      x => x.status === "new"
-    ).length;
+  updateStats();
 
 }
 
+
+/* OPEN MODAL */
+
+function openModal(id){
+
+  selected =
+    all.find(
+      x => x.id === id
+    );
+
+
+  if(!selected)
+    return;
+
+
+  $("modalTitle").textContent =
+    selected.job_number || "Request";
+
+
+  $("modalSubtitle").textContent =
+    selected.customer_name || "";
+
+
+  $("modalStatus").value =
+    selected.status || "new";
+
+
+  $("estimate").value =
+    selected.estimate_amount ?? "";
+
+
+  $("notes").value =
+    selected.internal_notes || "";
+
+
+  $("scheduled").value =
+    toLocalDateTime(
+      selected.scheduled_at
+    );
+
+
+  $("details").innerHTML = `
+
+    <div class="detail">
+
+      <label>Customer</label>
+
+      ${esc(
+        selected.customer_name
+      )}
+
+    </div>
+
+
+    <div class="detail">
+
+      <label>Phone</label>
+
+      <a href="tel:${esc(selected.phone)}">
+        ${esc(selected.phone)}
+      </a>
+
+    </div>
+
+
+    <div class="detail">
+
+      <label>Email</label>
+
+      ${
+        selected.email
+          ? esc(selected.email)
+          : "—"
+      }
+
+    </div>
+
+
+    <div class="detail">
+
+      <label>Type</label>
+
+      ${
+        selected.type === "booking"
+          ? "Booking"
+          : "Quote"
+      }
+
+    </div>
+
+
+    <div class="detail">
+
+      <label>Service</label>
+
+      ${esc(selected.service)}
+
+    </div>
+
+
+    <div class="detail">
+
+      <label>Preferred Date</label>
+
+      ${
+        selected.preferred_date ||
+        "—"
+      }
+
+    </div>
+
+
+    <div class="detail">
+
+      <label>Preferred Time</label>
+
+      ${
+        esc(
+          selected.preferred_time ||
+          "—"
+        )
+      }
+
+    </div>
+
+
+    <div class="detail">
+
+      <label>Urgency</label>
+
+      ${
+        esc(
+          selected.urgency ||
+          "Normal"
+        )
+      }
+
+    </div>
+
+
+    <div class="detail full">
+
+      <label>Address</label>
+
+      ${
+        esc(
+          selected.address ||
+          "—"
+        )
+      }
+
+    </div>
+
+
+    <div class="detail full">
+
+      <label>Customer Description</label>
+
+      ${
+        esc(
+          selected.description ||
+          "No description provided."
+        )
+      }
+
+    </div>
+
+
+    <div class="detail">
+
+      <label>Photos</label>
+
+      ${
+        Number(
+          selected.photo_count || 0
+        )
+      }
+
+    </div>
+
+
+    <div class="detail">
+
+      <label>Created</label>
+
+      ${
+        selected.created_at
+          ? new Date(
+              selected.created_at
+            ).toLocaleString()
+          : "—"
+      }
+
+    </div>
+
+  `;
+
+
+  $("callBtn").href =
+    "tel:" + selected.phone;
+
+
+  $("textBtn").href =
+    "sms:" + selected.phone;
+
+
+  $("mapBtn").href =
+    selected.address
+      ? mapURL(selected.address)
+      : "#";
+
+
+  $("modal")
+    .classList
+    .remove("hidden");
+
+}
+
+
+/* CLOSE MODAL */
+
+function closeModal(){
+
+  selected = null;
+
+  $("modal")
+    .classList
+    .add("hidden");
+
+}
+
+
+/* SAVE DETAILS */
+
+$("saveBtn").onclick =
+async () => {
+
+  if(!selected)
+    return;
+
+
+  const status =
+    $("modalStatus").value;
+
+  const estimate =
+    $("estimate").value;
+
+
+  const scheduled =
+    $("scheduled").value;
+
+
+  const notes =
+    $("notes").value;
+
+
+  const payload = {
+
+    status,
+
+    estimate_amount:
+      estimate === ""
+        ? null
+        : Number(estimate),
+
+    scheduled_at:
+      scheduled
+        ? new Date(
+            scheduled
+          ).toISOString()
+        : null,
+
+    internal_notes:
+      notes || null
+
+  };
+
+
+  const {error} =
+    await sb
+      .from("requests")
+      .update(payload)
+      .eq("id",selected.id);
+
+
+  if(error){
+
+    alert(
+      "Could not save: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  Object.assign(
+    selected,
+    payload
+  );
+
+
+  alert(
+    "Request updated successfully."
+  );
+
+
+  closeModal();
+
+  await load();
+
+};
+
+
+/* COPY INFO */
+
+$("copyBtn").onclick =
+async () => {
+
+  if(!selected)
+    return;
+
+
+  const text = `
+
+TrustBuild Handyman
+
+Job: ${selected.job_number || ""}
+Customer: ${selected.customer_name || ""}
+Phone: ${selected.phone || ""}
+Email: ${selected.email || ""}
+Service: ${selected.service || ""}
+Address: ${selected.address || ""}
+Date: ${selected.preferred_date || ""}
+Time: ${selected.preferred_time || ""}
+Status: ${prettyStatus(selected.status || "")}
+Estimate: ${
+  selected.estimate_amount != null
+    ? "$" + selected.estimate_amount
+    : ""
+}
+
+Description:
+${selected.description || ""}
+
+  `.trim();
+
+
+  try{
+
+    await navigator.clipboard.writeText(text);
+
+    alert(
+      "Customer information copied."
+    );
+
+  }catch(e){
+
+    alert(
+      "Copy is not available on this device."
+    );
+
+  }
+
+};
+
+
+/* QUICK CALL */
+
+function quickCall(phone){
+
+  window.location.href =
+    "tel:" + phone;
+
+}
+
+
+/* QUICK TEXT */
+
+function quickText(phone){
+
+  window.location.href =
+    "sms:" + phone;
+
+}
+
+
+/* MAP */
+
+function openMap(address){
+
+  window.open(
+    mapURL(address),
+    "_blank"
+  );
+
+}
+
+
+function mapURL(address){
+
+  return (
+    "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent(address)
+  );
+
+}
+
+
+/* LOCAL DATETIME */
+
+function toLocalDateTime(value){
+
+  if(!value)
+    return "";
+
+  const d =
+    new Date(value);
+
+  if(isNaN(d))
+    return "";
+
+  const pad =
+    n => String(n).padStart(2,"0");
+
+
+  return (
+    d.getFullYear() +
+    "-" +
+    pad(d.getMonth()+1) +
+    "-" +
+    pad(d.getDate()) +
+    "T" +
+    pad(d.getHours()) +
+    ":" +
+    pad(d.getMinutes())
+  );
+
+}
+
+
+/* CSV EXPORT */
+
+function exportCSV(){
+
+  const headers = [
+
+    "Job Number",
+    "Type",
+    "Customer",
+    "Phone",
+    "Email",
+    "Address",
+    "Service",
+    "Description",
+    "Preferred Date",
+    "Preferred Time",
+    "Urgency",
+    "Status",
+    "Estimate",
+    "Scheduled",
+    "Photo Count",
+    "Created"
+
+  ];
+
+
+  const rows =
+    all.map(x => [
+
+      x.job_number,
+      x.type,
+      x.customer_name,
+      x.phone,
+      x.email,
+      x.address,
+      x.service,
+      x.description,
+      x.preferred_date,
+      x.preferred_time,
+      x.urgency,
+      x.status,
+      x.estimate_amount,
+      x.scheduled_at,
+      x.photo_count,
+      x.created_at
+
+    ]);
+
+
+  const csv =
+    [headers,...rows]
+      .map(row =>
+        row
+          .map(csvCell)
+          .join(",")
+      )
+      .join("\n");
+
+
+  const blob =
+    new Blob(
+      [csv],
+      {type:"text/csv;charset=utf-8"}
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  const a =
+    document.createElement("a");
+
+
+  a.href = url;
+
+  a.download =
+    "trustbuild-requests-" +
+    new Date()
+      .toISOString()
+      .slice(0,10) +
+    ".csv";
+
+
+  a.click();
+
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+function csvCell(value){
+
+  return `"${String(
+    value ?? ""
+  ).replaceAll('"','""')}"`;
+
+}
+
+
+/* SECURITY: HTML ESCAPE */
 
 function esc(v){
 
   return String(v ?? "")
-    .replace(
-      /[&<>"']/g,
-      m => ({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#39;"
-      }[m])
-    );
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
+
+function escAttr(v){
+
+  return String(v ?? "")
+    .replaceAll("\\","\\\\")
+    .replaceAll("'","\\'")
+    .replaceAll('"','&quot;');
+
+}
+
+
+/* AUTH STATE */
 
 sb.auth
   .getSession()
@@ -849,10 +1871,11 @@ sb.auth
     const u =
       data.session?.user;
 
+
     if(
       u &&
-      u.email?.toLowerCase()
-        === ADMIN_EMAIL
+      u.email?.toLowerCase() ===
+      ADMIN_EMAIL
     ){
 
       showApp();
@@ -868,20 +1891,21 @@ sb.auth
 
 sb.auth
   .onAuthStateChange(
-    (_e,s) => {
+    (_event,session) => {
 
       const u =
-        s?.user;
+        session?.user;
+
 
       if(
         u &&
-        u.email?.toLowerCase()
-          === ADMIN_EMAIL
+        u.email?.toLowerCase() ===
+        ADMIN_EMAIL
       ){
 
         showApp();
 
-      }else if(!s){
+      }else if(!session){
 
         showLogin();
 
