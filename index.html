@@ -409,17 +409,14 @@ document.getElementById("bookingForm").addEventListener("submit",async function(
   button.textContent="SUBMITTING...";
 
   const data={
-    name:form.name.value.trim(),
-    phone:form.phone.value.trim(),
-    email:form.email.value.trim(),
-    service:form.service.value,
-    address:form.address.value.trim(),
-    date:form.date.value||null,
-    time:form.time.value,
-    description:form.description.value.trim(),
-    urgency:form.urgency.value
-  };
-
+  name:form.name.value.trim(),
+  phone:form.phone.value.trim(),
+  email:form.email.value.trim(),
+  service:form.service.value,
+  address:form.address.value.trim(),
+  description:form.description.value.trim(),
+  urgency:form.urgency.value
+};
   try{
     const jobNumber=await saveRequest("booking",data);
 
@@ -467,6 +464,7 @@ document.getElementById("quoteForm").addEventListener("submit",async function(e)
     service:form.service.value,
     address:form.address.value.trim(),
     description:form.description.value.trim(),
+    photos:Array.from(photos),
     photoCount:photos.length
   };
 
