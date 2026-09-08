@@ -1485,6 +1485,65 @@ function rid(prefix){
    It is what makes the forms submit to Supabase.
 */
 
+async function uploadQuotePhotos(jobNumber, files){
+
+  const paths = [];
+
+  for(const file of files){
+
+    if(!file.type.startsWith("image/")){
+      throw new Error(
+        "Only image files are allowed."
+      );
+    }
+
+    if(file.size > 10 * 1024 * 1024){
+      throw new Error(
+        "Each photo must be 10 MB or less."
+      );
+    }
+
+    const safeName =
+      file.name
+        .toLowerCase()
+        .replace(/[^a-z0-9._-]+/g,"-")
+        .slice(-80);
+
+    const path =
+      jobNumber +
+      "/" +
+      Date.now() +
+      "-" +
+      Math.random()
+        .toString(36)
+        .slice(2,8) +
+      "-" +
+      safeName;
+
+    const { error } =
+      await supabaseClient
+        .storage
+        .from("job-photos")
+        .upload(
+          path,
+          file,
+          {
+            contentType:file.type,
+            upsert:false
+          }
+        );
+
+    if(error){
+      throw error;
+    }
+
+    paths.push(path);
+  }
+
+  return paths;
+}
+
+
 async function saveRequest(type,data){
 
   const id =
@@ -1493,6 +1552,24 @@ async function saveRequest(type,data){
         ? "QT"
         : "JOB"
     );
+
+
+  let photoPaths = [];
+
+
+  if(
+    type === "quote" &&
+    data.photos &&
+    data.photos.length
+  ){
+
+    photoPaths =
+      await uploadQuotePhotos(
+        id,
+        data.photos
+      );
+
+  }
 
 
   const { error } =
@@ -1521,17 +1598,23 @@ async function saveRequest(type,data){
         status:"new",
 
         photo_count:
-          Number(data.photoCount || 0)
+          photoPaths.length,
+
+        photo_paths:
+          photoPaths
 
       });
 
 
   if(error){
+
     throw error;
+
   }
 
 
   return id;
+
 
 }
 
@@ -1731,10 +1814,14 @@ document
         description:
           form.description.value.trim(),
 
-        photoCount:
-          photos.length
+      photos:
+       photos,
 
-      };
+  photoCount:
+   photos.length
+
+};
+
 
 
       try{
