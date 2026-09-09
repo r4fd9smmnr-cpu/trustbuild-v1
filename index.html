@@ -854,15 +854,15 @@ textarea{
               name="urgency"
             >
 
-              <option value="normal">
+              <option value="Normal">
                 Normal
               </option>
 
-              <option value="soon">
+              <option value="Priority">
                 As soon as possible
               </option>
 
-              <option value="urgent">
+              <option value="Emergency / Same Day">
                 Urgent
               </option>
 
@@ -1361,12 +1361,12 @@ function fillServices(){
 
     document.getElementById("bService"),
 
-    document.getElementById("qService")
+    null
 
   ];
 
 
-  selects.forEach(select=>{
+  selects.filter(Boolean).forEach(select=>{
 
     SERVICES.forEach(s=>{
 
@@ -1593,7 +1593,7 @@ async function saveRequest(type,data){
 
         description:data.description || null,
 
-        preferred_date:data.date || null,
+        preferred_date:data.date || null, preferred_time:data.time || null, urgency:data.urgency || "Normal",
 
         status:"new",
 
